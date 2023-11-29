@@ -12,6 +12,5 @@ class Message {
 		std::string msg;
 		std::string cmd;
 		std::vector<std::string> args;
-	private:
 
 };

@@ -13,7 +13,13 @@ Message::Message(){}
 Message::Message(std::string line): msg(line){
 	std::string::size_type pos = msg.find(' ');
 	if (pos == std::string::npos)
-		throw std::invalid_argument("Invalid command");
+	{
+		cmd = line;
+		for (std::string::iterator it = cmd.begin(); it != cmd.end(); ++it)
+			*it = toupper(*it);
+		std::cout << TEXT_UNDERLINE << cmd << " | " << args.size() << " args:"<<TEXT_RESET << std::endl;
+		return ;
+	}
 
 	cmd = line.substr(0, pos);
 	for (std::string::iterator it = cmd.begin(); it != cmd.end(); ++it)
