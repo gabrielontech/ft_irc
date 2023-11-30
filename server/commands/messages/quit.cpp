@@ -54,8 +54,8 @@ void QUIT(Server &server, Client &client)
                 if (server.isClientExistingID(*clientCon))
                 {
                     if (server.getClient(*clientCon).getNickname() != nickname)
-                    {
-                        if (message.args[0].size() == 0)
+                    {                       
+                        if (message.args.empty())
                             sendQUITREASON(server.getClient(*clientCon), client, "");
                     }
                 } 
