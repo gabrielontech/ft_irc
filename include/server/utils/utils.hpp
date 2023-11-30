@@ -22,5 +22,6 @@ void toLowerStr(std::string& str);
 ssize_t sendCustom(int sockfd, const void *buf, size_t len, int flags);
 bool isChannelFlag(char flag);
 bool isChannelName(std::string str);
+void replace_rn_by_n(std::string& str);
 
 #endif

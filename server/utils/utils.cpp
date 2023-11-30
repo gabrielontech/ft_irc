@@ -79,3 +79,11 @@ ssize_t sendCustom(int sockfd, const void *buf, size_t len, int flags)
 	std::cout << " => Message sent to fd " << sockfd << ": -->" << msg << "<--" << std::endl;
 	return(send(sockfd, buf, len, flags));
 }
+
+void replace_rn_by_n(std::string& str)
+{
+	while(str.find("\r\n") != std::string::npos)
+	{
+		str.replace(str.find("\r\n"),  2, "\n");
+	}
+}

@@ -302,7 +302,6 @@ bool Server::handleMessages(const int fd) {
 
 	msg.append(buffer, bytes_read);
 
-
 	while (bytes_read == BUFFER_SIZE - 1) {
 		bytes_read = recv(fd, buffer, BUFFER_SIZE - 1, 0);
 		if (bytes_read < 0) {
@@ -316,14 +315,14 @@ bool Server::handleMessages(const int fd) {
 		this->disconnectClient(fd);
 		return false;
 	}
-
+	replace_rn_by_n(msg);
 	client.recv_buffer.append(msg);
 
-	while (client.recv_buffer.find("\r\n") != std::string::npos) {
-		size_t position = client.recv_buffer.find("\r\n");
+	while (client.recv_buffer.find("\n") != std::string::npos) {
+		size_t position = client.recv_buffer.find("\n");
 
 		std::string command = client.recv_buffer.substr(0, position);
-		client.recv_buffer = client.recv_buffer.substr(position + 2); // remove command (with \r\n) from buffer
+		client.recv_buffer = client.recv_buffer.substr(position + 1); // remove command (with \r\n) from buffer
 
 		client.setClientMessage(Message(command));
 		if(!commandsHandler(*this , client))
