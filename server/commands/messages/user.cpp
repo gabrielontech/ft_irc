@@ -13,7 +13,7 @@ void	USER(Server &server, Client &client)
 	{
 		if (message.args.size() != 0)
 		{
-			if (message.args.size() != 4)
+			if (message.args.size() < 4)
 			{
 				ERR_NEEDMOREPARAMS(client, message.cmd);
 				return;
