@@ -82,7 +82,6 @@ void Server::disconnectClient(const int fd) {
 		it->clientOperators.erase(client->getID());
 		it->clientBanned.erase(client->getID());
 		it->clientInvited.erase(client->getID());
-
 	}
 	epoll_ctl(this->_epoll_fd, EPOLL_CTL_DEL, client->getFD(), NULL);
 	close(client->getFD());
@@ -161,7 +160,6 @@ bool Server::initEpoll() {
 		global_status = e_STOP;
 		return false;
 	}
-
 	// set non blocking
 	if (fcntl(this->_epoll_fd, F_SETFL, O_NONBLOCK) < 0) {
 		close(this->_epoll_fd);
@@ -405,30 +403,3 @@ Channel &Server::getChannel(std::string chanName)
 	return *this->channels.end();
 }
 
-
-void	Server::pingAllClients()
-{
-	for(std::vector<Client>::iterator it = this->clients.begin(); it != this->clients.end(); it++)
-	{
-		if (it->isOnline())
-		{
-			if (difftime(time(0), it->lastPingSent) > PING_FREQUENCY / 1000)
-			{
-				it->ping();
-				it->lastPingSent = time(0);
-			}
-		}
-	}
-}
-
-
-void Server::checkInactiveClients()
-{
-	for(std::vector<Client>::iterator it = this->clients.begin(); it != this->clients.end(); it++)
-	{
-		if (difftime(it->lastPingSent, it->lastPongReceived) > 0 && difftime(time(0), it->lastPingSent) > WAIT_TIME_BEFORE_KILL / 1000)
-		{
-			it->setOnline(false);
-		}
-	}
-}

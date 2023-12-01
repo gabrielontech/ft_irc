@@ -39,7 +39,6 @@ Channel& Channel::operator=(const Channel& other) {
 		_isPasswordOnly = other._isPasswordOnly;
 		_isSizeLimit = other._isSizeLimit;
 		_isTopicLimited = other._isTopicLimited;
-
 		clientConnected = other.clientConnected;
 		clientBanned = other.clientBanned;
 		clientOperators = other.clientOperators;

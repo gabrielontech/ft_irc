@@ -13,6 +13,5 @@ void PONG(Client &client) {
 	}
 	if (!client.isOnline())
 		return;
-	client.lastPongReceived = time(0);
 	sendPING(client, message);
 }

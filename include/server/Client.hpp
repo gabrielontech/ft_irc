@@ -3,7 +3,6 @@
 #include "Server.hpp"
 #include "../messages/Message.hpp"
 #include <string>
-#include <ctime>
 #include <netinet/in.h> // sockaddr_in
 #include <sys/epoll.h> // epoll_event
 
@@ -14,8 +13,6 @@ class Client
 	public:
 		std::string ID;
 		std::string recv_buffer;
-		time_t						lastPingSent;
-		time_t						lastPongReceived;
 		Client(int fd, Server &server ,std::string host, int port, struct epoll_event event, struct sockaddr_in addrinfo);
 		~Client();
 
@@ -40,9 +37,7 @@ class Client
 		std::string getPreviousNick ();
 		void setNickHistory(std::string nickname) { this->_nick_history.push_back(nickname); }
 		void sendMsg(std::string msg);
-		void ping();
 		void disconnect();
-
 		bool isRegistered() const { return this->_registered; }
 		void setRegistered(bool registered) { this->_registered = registered; }
 

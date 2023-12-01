@@ -13,8 +13,6 @@
 
 Client::Client(int fd, Server &server, std::string host, int port, struct epoll_event event, struct sockaddr_in addrinfo): _fd(fd), _server(server), _host(host), _port(port), _conn_event(event), _addrinfo(addrinfo), _nickname(""), _client_msg(Message()), _operatorMode(false), _invisibleMode(true), _online(false) ,_registered(false), _identified(false) {
 	this->ID = "";
-	this->lastPingSent = time(0);
-	this->lastPongReceived = time(0);
 }
 
 std::string Client::getPreviousNick () 
@@ -34,8 +32,6 @@ Client& Client::operator=(const Client& other) {
         this->_server = other._server;
         this->ID = other.ID;
         this->recv_buffer = other.recv_buffer;
-        this->lastPingSent = other.lastPingSent;
-        this->lastPongReceived = other.lastPongReceived;
         this->_host = other._host;
         this->_port = other._port;
         this->_conn_event = other._conn_event;
@@ -53,12 +49,6 @@ Client& Client::operator=(const Client& other) {
         this->_identified = other._identified;
     }
     return *this;
-}
-
-
-void	Client::ping()
-{
-	this->sendMsg("PING " + this->_server.getServerName() + "\r\n" );;
 }
 
 Client::~Client() {}
