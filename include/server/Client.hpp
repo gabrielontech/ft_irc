@@ -22,6 +22,7 @@ class Client
 		std::string getID() const { return this->ID; }
 		std::string getIDCMD() const { return (":" + this->ID); }
 		std::string getHost() const { return this->_host; }
+		void setHostName(std::string host) { this->_host = host; }
 		int getPort() const { return this->_port; }
 		Message getClientMessage() const  { return this->_client_msg; }
 		void setClientMessage(Message message) { this->_client_msg = message; }

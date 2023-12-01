@@ -13,13 +13,14 @@ void	USER(Server &server, Client &client)
 	{
 		if (message.args.size() != 0)
 		{
-			if (message.args.size() != 4)
+			if (message.args.size() < 5)
 			{
 				ERR_NEEDMOREPARAMS(client, message.cmd);
 				return;
 			}
-            client.setUserName(message.args[1]);
-            client.setRealName(message.args[3]);
+            client.setUserName(message.args[0]);
+            client.setRealName(message.args[1]);
+			client.setHostName(message.args[2]);
             client.setID(client.getNickname() + "!" + client.getUserName() + "@" + client.getHost());
 			sendRplWelcome(server, client);
 			client.setIdentified(true);
