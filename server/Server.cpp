@@ -252,7 +252,7 @@ bool Server::handleNewConnection(struct epoll_event &event) {
 	// 	close(client_fd);
 	// 	return false;
 	// }
-	// flags = O_NONBLOCK;
+	// flags |= O_NONBLOCK;
 	// set non-blocking socket as we set it to edge to avoid infinite block on next epoll_wait()
 	// (see 'Level-triggered and edge-triggered' section at: https://man7.org/linux/man-pages/man7/epoll.7.html) 
 	if (fcntl(client_fd, F_SETFL, O_NONBLOCK) < 0) {
