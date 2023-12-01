@@ -246,16 +246,16 @@ bool Server::handleNewConnection(struct epoll_event &event) {
 		return false;
 	}
 
-	int flags = fcntl(client_fd, F_GETFL, 0);
-	if (flags < 0) {
-		std::cerr << "Error: Failed to get socket flags" << std::endl;
-		close(client_fd);
-		return false;
-	}
-	flags |= O_NONBLOCK;
+	// int flags = fcntl(client_fd, F_GETFL, 0);
+	// if (flags < 0) {
+	// 	std::cerr << "Error: Failed to get socket flags" << std::endl;
+	// 	close(client_fd);
+	// 	return false;
+	// }
+	// flags |= O_NONBLOCK;
 	// set non-blocking socket as we set it to edge to avoid infinite block on next epoll_wait()
 	// (see 'Level-triggered and edge-triggered' section at: https://man7.org/linux/man-pages/man7/epoll.7.html) 
-	if (fcntl(client_fd, F_SETFL, flags) < 0) {
+	if (fcntl(client_fd, F_SETFL, O_NONBLOCK) < 0) {
 		std::cerr << "Error: Failed to set non-blocking socket" << std::endl;
 		close(client_fd);
 		return false;
